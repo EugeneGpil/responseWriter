@@ -8,19 +8,22 @@ import (
 
 type ResponseWriter struct {
 	holder *ResponseHolder.ResponseHolder
+	header *http.Header
 }
 
 func New() ResponseWriter {
 	holder := ResponseHolder.New()
+	header := http.Header(map[string][]string{})
 
 	return ResponseWriter{
 		holder: &holder,
+		header: &header,
 	}
 }
 
 // Implementation of net/http.responseWriter interface
 func (writer ResponseWriter) Header() http.Header {
-	return http.Header{}
+	return *writer.header
 }
 
 // Implementation of net/http.responseWriter interface
